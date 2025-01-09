@@ -1,3 +1,4 @@
+
 const upgrade1CostDisplay = document.getElementById('upgradecost1');
 const upgrade2CostDisplay = document.getElementById('upgradecost2');
 const upgrade3CostDisplay = document.getElementById('upgradecost3');
@@ -8,6 +9,10 @@ const upgrade3Button = document.getElementById('upgrade3-button');
 const upgrade4Button = document.getElementById('upgrade4-button');
 const currencyDisplay = document.getElementById('currency');
 
+const generateEl = document.getElementById('generate');
+const counterEl = document.getElementById('counter');
+
+
 let currency = 0;
 const costIncreaseFactor = 1.2;
 
@@ -16,6 +21,16 @@ let upgrade1count = 0;
 let upgrade2count = 0;
 let upgrade3count = 0;
 let upgrade4count = 0;
+
+//updates the users total money count 
+function totalText() {
+    counterEl.textContent = currency;
+};
+// increases total money by 1 for each click
+generateEl.addEventListener('click', function () {
+    currency++;
+    totalText();
+});
 
 
 let upgradeCosts = {

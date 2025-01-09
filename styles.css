@@ -12057,3 +12057,22 @@ textarea.form-control-lg {
 /*# sourceMappingURL=bootstrap.css.map */
 
 
+.live-button-border{
+  background-color: #07831c;
+  color: #9b9292;
+  border-radius: 11px 5px 5px 5px;
+  border: 2px solid #0b6b27;
+  padding: 8px;
+  box-shadow: 1px 4px 8px 0px #000000;
+  transition: background-color 0.3s, color 0.3s, border-radius 0.3s;
+  height: 150px;
+  width: 300px;
+  font-size: 50px;
+}
+
+.live-button-border:hover {
+  background-color: #aab4bb;
+  color: #7e6a67;
+  border-radius: 8px 5px 11px 5px;
+}
+
