@@ -11,31 +11,51 @@ const currencyDisplay = document.getElementById('currency');
 let currency = 0;
 const costIncreaseFactor = 1.2;
 
+//BEGINNING BUTTON BEHAVIOR 
+let clickValue = 1;
+let multiplier = 1; 
+
+//UPGRADE EFFECTS
 let upgradeCosts = {
-    upgrade1: 200,
-    upgrade2: 1000,
-    upgrade3: 2000,
-    upgrade4: 500,
+    upgrade1: {cost: 100, maxPurchases: 5, purchasesMade: 0, multiplier: 1},
+    upgrade2: {cost: 1000, maxPurchases: 4, purchasesMade: 0, multiplier: 1},
+    upgrade3: {cost: 2000, maxPurchases: 3, purchasesMade: 0, multiplier: 1},
+    upgrade4: {cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1},
   };
 
+  //SHOWS CURRENT  PRICE OF EACH UPGRADE AND UPDATES CURRENT MONEY SHOWN
   function updateDisplay() {
-      upgrade1CostDisplay.textContent = upgradeCosts.upgrade1;
-      upgrade2CostDisplay.textContent = upgradeCosts.upgrade2;
-      upgrade3CostDisplay.textContent = upgradeCosts.upgrade3;
-      upgrade4CostDisplay.textContent = upgradeCosts.upgrade4;
+      upgrade1CostDisplay.textContent = upgradeCosts.upgrade1.cost.toFixed(0);
+      upgrade2CostDisplay.textContent = upgradeCosts.upgrade2.cost.toFixed(0);
+      upgrade3CostDisplay.textContent = upgradeCosts.upgrade3.cost.toFixed(0);
+      upgrade4CostDisplay.textContent = upgradeCosts.upgrade4.cost.toFixed(0);
       currencyDisplay.textContent = currency;
   }
-
-
+//check to see if player has enough money to buy said upgrade and if there are any upgrades left
+  function canBuyUpgrade(upgrade) {
+    return currency >= upgradeCosts[upgrade].cost && upgradeCosts[upgrade].purchasesMade < upgradeCosts[upgrade].maxPurchases;
+  }
+//buy a upgrade
   function buyUpgrade(upgrade) {
-    // Check if the player has enough currency
-    if (currency >= upgradeCosts[upgrade]) {
-    // Deduct the cost of the upgrade
-        currency -= upgradeCosts[upgrade]; 
-    // Increase the cost
-        upgradeCosts[upgrade] = Math.floor(upgradeCosts[upgrade] * costIncreaseFactor);
-      updateDisplay();
+    if (canBuyUpgrade(upgrade)) {
+//total currency subtracted by the cost  of upgrade
+    currency -= upgradeCosts[upgrade].cost; 
+//increase the count to purchases made
+    upgradeCosts[upgrade].purchasesMade++;
+ // Apply the effects of the upgrade
+ if (upgrade === 'upgrade1') {
+    multiplier *= 1.5;} 
+    else if (upgrade === 'upgrade2') {
+      multiplier *= 2;}
+    else if (upgrade === 'upgrade3') {
+        multiplier *= 4;}
+    else if (upgrade === 'upgrade4') {
+        clickValue += 1;}
 
+    // Increase the cost
+        upgradeCosts[upgrade].cost = Math.floor(upgradeCosts[upgrade].cost * costIncreaseFactor);
+      updateDisplay();
+      alert(`${upgrade} purchased!`);
     } else {
       alert("Not enough currency to buy this upgrade.");
     }
@@ -57,5 +77,5 @@ let upgradeCosts = {
     buyUpgrade('upgrade4');
   });
 
-  updateDisplay();
+    updateDisplay();
   
