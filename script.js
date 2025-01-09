@@ -16,6 +16,11 @@ const counterEl = document.getElementById('counter');
 let currency = 0;
 const costIncreaseFactor = 1.2;
 
+// All upgrades start at 0, and increase based on purchase.
+let upgrade1count = 0;
+let upgrade2count = 0;
+let upgrade3count = 0;
+let upgrade4count = 0;
 
 //updates the users total money count 
 function totalText() {
@@ -51,6 +56,12 @@ let upgradeCosts = {
         currency -= upgradeCosts[upgrade]; 
     // Increase the cost
         upgradeCosts[upgrade] = Math.floor(upgradeCosts[upgrade] * costIncreaseFactor);
+
+    // Message to show purchase was successful, and the new upgrade cost
+        upgrade1count[upgrade]++;
+        const message1 = `You have hired ${upgrade1count} Workers! Upgrade cost increase to: ${upgradeCosts.upgrade1}`;
+        upgrade1Button.textContent = message1;
+        
       updateDisplay();
 
     } else {
