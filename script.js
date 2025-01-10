@@ -16,12 +16,6 @@ const counterEl = document.getElementById('counter');
 let currency = 0;
 const costIncreaseFactor = 1.2;
 
-// All upgrades start at 0, and increase based on purchase.
-let upgrade1count = 0;
-let upgrade2count = 0;
-let upgrade3count = 0;
-let upgrade4count = 0;
-
 //updates the users total money count 
 function totalText() {
     counterEl.textContent = currency;
@@ -54,8 +48,9 @@ let upgradeCosts = {
   }
 //check to see if player has enough money to buy said upgrade and if there are any upgrades left
   function canBuyUpgrade(upgrade) {
-    return currency >= upgradeCosts[upgrade].cost && upgradeCosts[upgrade].purchasesMade < upgradeCosts[upgrade].maxPurchases;
-  }
+        return currency >= upgradeCosts[upgrade].cost && upgradeCosts[upgrade].purchasesMade < upgradeCosts[upgrade].maxPurchases;
+    }
+
 //buy a upgrade
   function buyUpgrade(upgrade) {
     if (canBuyUpgrade(upgrade)) {
@@ -63,8 +58,9 @@ let upgradeCosts = {
     currency -= upgradeCosts[upgrade].cost; 
 //increase the count to purchases made
     upgradeCosts[upgrade].purchasesMade++;
+
  // Apply the effects of the upgrade
- if (upgrade === 'upgrade1') {
+    if (upgrade === 'upgrade1') {
     multiplier *= 1.5;} 
     else if (upgrade === 'upgrade2') {
       multiplier *= 2;}
@@ -74,19 +70,14 @@ let upgradeCosts = {
         clickValue += 1;}
 
     // Increase the cost
-        upgradeCosts[upgrade].cost = Math.floor(upgradeCosts[upgrade].cost * costIncreaseFactor);
-
-    // Message to show purchase was successful, and the new upgrade cost
-        upgrade1count[upgrade]++;
-        const message1 = `You have hired ${upgrade1count} Workers! Upgrade cost increase to: ${upgradeCosts.upgrade1}`;
-        upgrade1Button.textContent = message1;
+        upgradeCosts[upgrade].cost = Math.floor(upgradeCosts[upgrade].cost * costIncreaseFactor);        
         
       updateDisplay();
       alert(`${upgrade} purchased!`);
     } else {
       alert("Not enough currency to buy this upgrade.");
     }
-  }
+}
 
   upgrade1Button.addEventListener('click', function() {
     buyUpgrade('upgrade1');
