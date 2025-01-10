@@ -13,8 +13,8 @@ const generateEl = document.getElementById('generate');
 const counterEl = document.getElementById('counter');
 
 
-let currency = 0;
-const costIncreaseFactor = 1.2;
+let currency = 100000;
+const costIncreaseFactor = 1.5;
 
 // All upgrades start at 0, and increase based on purchase.
 let upgrade1count = 0;
@@ -78,7 +78,7 @@ let upgradeCosts = {
 
     // Message to show purchase was successful, and the new upgrade cost
         upgrade1count[upgrade]++;
-        const message1 = `You have hired ${upgrade1count} Workers! Upgrade cost increase to: ${upgradeCosts.upgrade1}`;
+        const message1 = `You have hired ${upgradeCosts[upgrade].purchasesMade} Workers! Upgrade cost increase to: ${upgradeCosts[upgrade].cost}`;
         upgrade1Button.textContent = message1;
         
       updateDisplay();
