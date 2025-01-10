@@ -13,14 +13,9 @@ const generateEl = document.getElementById('generate');
 const counterEl = document.getElementById('counter');
 
 
-let currency = 0;
+//let currency = 0;
+let currency = 6969;
 const costIncreaseFactor = 1.2;
-
-// All upgrades start at 0, and increase based on purchase.
-let upgrade1count = 0;
-let upgrade2count = 0;
-let upgrade3count = 0;
-let upgrade4count = 0;
 
 //updates the users total money count 
 function totalText() {
@@ -38,10 +33,10 @@ let multiplier = 1;
 
 //UPGRADE EFFECTS
 let upgradeCosts = {
-    upgrade1: {cost: 100, maxPurchases: 5, purchasesMade: 0, multiplier: 1},
-    upgrade2: {cost: 1000, maxPurchases: 4, purchasesMade: 0, multiplier: 1},
-    upgrade3: {cost: 2000, maxPurchases: 3, purchasesMade: 0, multiplier: 1},
-    upgrade4: {cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1},
+    upgrade1: {cost: 100, maxPurchases: 5, purchasesMade: 0, multiplier: 1, autoGen: 1},
+    upgrade2: {cost: 1000, maxPurchases: 4, purchasesMade: 0, multiplier: 1, autoGen: 5},
+    upgrade3: {cost: 2000, maxPurchases: 3, purchasesMade: 0, multiplier: 1, autoGen: 10},
+    upgrade4: {cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1}, //Not sure If autoGen is needed here, instead need to find a way to increase the currency++ to be currency +2,+5,etc.
   };
 
   //SHOWS CURRENT  PRICE OF EACH UPGRADE AND UPDATES CURRENT MONEY SHOWN
@@ -52,10 +47,14 @@ let upgradeCosts = {
       upgrade4CostDisplay.textContent = upgradeCosts.upgrade4.cost.toFixed(0);
       currencyDisplay.textContent = currency;
   }
+
+  let totalAutoGen = 0;
+
 //check to see if player has enough money to buy said upgrade and if there are any upgrades left
-  function canBuyUpgrade(upgrade) {
-    return currency >= upgradeCosts[upgrade].cost && upgradeCosts[upgrade].purchasesMade < upgradeCosts[upgrade].maxPurchases;
+function canBuyUpgrade(upgrade) {
+      return currency >= upgradeCosts[upgrade].cost && upgradeCosts[upgrade].purchasesMade < upgradeCosts[upgrade].maxPurchases;
   }
+
 //buy a upgrade
   function buyUpgrade(upgrade) {
     if (canBuyUpgrade(upgrade)) {
@@ -63,8 +62,33 @@ let upgradeCosts = {
     currency -= upgradeCosts[upgrade].cost; 
 //increase the count to purchases made
     upgradeCosts[upgrade].purchasesMade++;
+
+//add the autoGen rate of the current upgrade to the totalAutoGen
+if (upgradeCosts[upgrade].autoGen) {
+  totalAutoGen += upgradeCosts[upgrade].autoGen;
+}
+
+// Check if max purchases are reached for the current upgrade
+if (upgradeCosts[upgrade].purchasesMade === upgradeCosts[upgrade].maxPurchases) {
+  // Show message when the max purchases are reached
+  const messageMax = `You have purchased the maximum number for ${upgrade}.`;
+  // Update button text with the max purchase message
+  if (upgrade === 'upgrade1') {
+      upgrade1Button.textContent = messageMax;
+      upgrade1Button.disabled = true; // Disable the button
+  } else if (upgrade === 'upgrade2') {
+      upgrade2Button.textContent = messageMax;
+      upgrade2Button.disabled = true;
+  } else if (upgrade === 'upgrade3') {
+      upgrade3Button.textContent = messageMax;
+      upgrade3Button.disabled = true;
+  } else if (upgrade === 'upgrade4') {
+      upgrade4Button.textContent = messageMax;
+      upgrade4Button.disabled = true;
+  }
+} else {  
  // Apply the effects of the upgrade
- if (upgrade === 'upgrade1') {
+    if (upgrade === 'upgrade1') {
     multiplier *= 1.5;} 
     else if (upgrade === 'upgrade2') {
       multiplier *= 2;}
@@ -77,16 +101,50 @@ let upgradeCosts = {
         upgradeCosts[upgrade].cost = Math.floor(upgradeCosts[upgrade].cost * costIncreaseFactor);
 
     // Message to show purchase was successful, and the new upgrade cost
-        upgrade1count[upgrade]++;
-        const message1 = `You have hired ${upgrade1count} Workers! Upgrade cost increase to: ${upgradeCosts.upgrade1}`;
+    const message1 = `You have purchased ${upgradeCosts[upgrade].purchasesMade} Worker(s)! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
+    const message2 = `You have purchased ${upgradeCosts[upgrade].purchasesMade} Factory(s)! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
+    const message3 = `You have purchased ${upgradeCosts[upgrade].purchasesMade} Money Printer(s)! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
+    const message4 = `You have purchased ${upgradeCosts[upgrade].purchasesMade} a Bill Upgrade! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
+    if (upgrade === 'upgrade1') {
         upgrade1Button.textContent = message1;
-        
+    } else if (upgrade === 'upgrade2') {
+        upgrade2Button.textContent = message2;
+    } else if (upgrade === 'upgrade3') {
+        upgrade3Button.textContent = message3;
+    } else if (upgrade === 'upgrade4') {
+        upgrade4Button.textContent = message4;
+    }
+}
       updateDisplay();
       alert(`${upgrade} purchased!`);
     } else {
       alert("Not enough currency to buy this upgrade.");
     }
   }
+
+// set up auto generation for currency based on upgrades
+function autoGenerateCurrency() {
+  // for each upgrade, check if it has been purchased and increase currency
+  if (upgradeCosts.upgrade1.purchasesMade > 0) {
+      currency += upgradeCosts.upgrade1.autoGen * upgradeCosts.upgrade1.purchasesMade;
+  }
+  if (upgradeCosts.upgrade2.purchasesMade > 0) {
+      currency += upgradeCosts.upgrade2.autoGen * upgradeCosts.upgrade2.purchasesMade;
+  }
+  if (upgradeCosts.upgrade3.purchasesMade > 0) {
+      currency += upgradeCosts.upgrade3.autoGen * upgradeCosts.upgrade3.purchasesMade;
+  }
+  totalText();
+}
+
+//combine autoGens into one value so rates stack and combine
+function autoGenerateCurrency() {
+  currency += totalAutoGen;
+  totalText();
+}
+
+//rate of auto generated currency 
+setInterval(autoGenerateCurrency, 1000);
 
   upgrade1Button.addEventListener('click', function() {
     buyUpgrade('upgrade1');
