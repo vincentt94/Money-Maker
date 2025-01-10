@@ -9,10 +9,19 @@ const upgrade3Button = document.getElementById('upgrade3-button');
 const upgrade4Button = document.getElementById('upgrade4-button');
 const generateEl = document.getElementById('generate');
 const counterEl = document.getElementById('counter');
+const modal = document.getElementById('myModal');
+const closer = document.querySelector('.close');
+const modal2 = document.getElementById('myModal2');
+// const closer2 =
+const modal3 = document.querySelector('myModal3');
+// const closer3 =
+const modal4 = document.querySelector("myModal4");
+// const closer4 = 
+const modal5 = document.querySelector('.myModal5');
 
 const moneyMulitplier = document.getElementById('moneypersec')
 
-let currency = 1000000000;
+let currency = 95;
 const costIncreaseFactor = 1.5;
 
 
@@ -103,6 +112,47 @@ if (upgradeCosts[upgrade].purchasesMade === upgradeCosts[upgrade].maxPurchases) 
 } else{
 
 
+    //functions to open the each modal message
+
+    function openModal() {
+      modal.style.display="block";
+    };
+    
+    function openModal2() {
+      modal2.style.display="block";
+    };
+
+    
+    function openModal3() {
+      modal3.style.display="block";
+    };
+
+    
+    function openModal4() {
+      modal4.style.display="block";
+    };
+
+    //function to close the modal
+    //may have to create multiple functions (ex close2, close3, close4)
+
+    closer.onclick = function() {
+      modal.style.display="none";
+    }
+
+
+
+    //closes modal when clicking outside of it
+    //may have to create multiple functions again 
+    window.onclick= function(event) {
+      if(event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    //this replaces the alert functionality essentially 
+    function showAlert() {
+      openModal();
+    }
+
     // Increase the cost
         upgradeCosts[upgrade].cost = Math.floor(upgradeCosts[upgrade].cost * costIncreaseFactor);
 
@@ -122,7 +172,7 @@ if (upgradeCosts[upgrade].purchasesMade === upgradeCosts[upgrade].maxPurchases) 
     }
 }
       updateDisplay();
-      alert(`${upgrade} purchased!`);
+      showAlert();
     } else {
       alert("Not enough currency to buy this upgrade.");
     }
@@ -170,3 +220,6 @@ setInterval(autoGenerateCurrency, 1000);
   });
 
     updateDisplay();
+
+
+  
