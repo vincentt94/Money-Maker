@@ -12076,3 +12076,104 @@ textarea.form-control-lg {
   border-radius: 8px 5px 11px 5px;
 }
 
+/* initial class selector for all the tool tips */
+
+/* .tooltip is already used in the bootstrap 
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; 
+}
+  */
+
+
+
+
+
+  /* text for the the tooltips */
+  .toolTipMoneyButton .toolTipTextMoneyButton {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .toolTip1 .toolTipText1 {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .toolTip2 .toolTipText2 {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .toolTip3 .toolTipText3 {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .toolTip4 .toolTipText4 {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+  }
+
+
+
+
+
+ /*Code below shows the tooltip text visible when hovering over */ 
+
+ .toolTipMoneyButton:hover .toolTipTextMoneyButton {
+  visibility: visible;
+ }
+
+.toolTip1:hover .toolTipText1 {
+  visibility: visible;
+}
+
+.toolTip2:hover .toolTipText2 {
+  visibility: visible;
+}
+
+.toolTip3:hover .toolTipText3 {
+  visibility: visible;
+}
+
+.toolTip4:hover .toolTipText4 {
+  visibility: visible;
+}
+
