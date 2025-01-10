@@ -13,7 +13,7 @@ const generateEl = document.getElementById('generate');
 const counterEl = document.getElementById('counter');
 
 
-let currency = 0;
+let currency = 150000;
 const costIncreaseFactor = 1.2;
 
 // All upgrades start at 0, and increase based on purchase.
