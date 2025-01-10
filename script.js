@@ -7,19 +7,19 @@ const upgrade1Button = document.getElementById('upgrade1-button');
 const upgrade2Button = document.getElementById('upgrade2-button');
 const upgrade3Button = document.getElementById('upgrade3-button');
 const upgrade4Button = document.getElementById('upgrade4-button');
-const currencyDisplay = document.getElementById('currency');
-
 const generateEl = document.getElementById('generate');
 const counterEl = document.getElementById('counter');
 
+const moneyMulitplier = document.getElementById('moneypersec')
 
-let currency = 0;
+let currency = 1000000000;
 const costIncreaseFactor = 1.5;
 
 
 //updates the users total money count 
 function totalText() {
     counterEl.textContent = currency;
+    moneyMulitplier.textcontent = totalAutoGen;
 };
 // increases total money by 1 for each click
 generateEl.addEventListener('click', function () {
@@ -29,13 +29,12 @@ generateEl.addEventListener('click', function () {
 
 //BEGINNING BUTTON BEHAVIOR 
 let clickValue = 1;
-let multiplier = 1; 
 
 //UPGRADE EFFECTS
 let upgradeCosts = {
-    upgrade1: {cost: 100, maxPurchases: 5, purchasesMade: 0, multiplier: 1, autoGen: 1},
-    upgrade2: {cost: 1000, maxPurchases: 4, purchasesMade: 0, multiplier: 1, autoGen: 5},
-    upgrade3: {cost: 2000, maxPurchases: 3, purchasesMade: 0, multiplier: 1, autoGen: 10},
+    upgrade1: {cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1,},
+    upgrade2: {cost: 1000, maxPurchases: 4, purchasesMade: 0, autoGen: 5},
+    upgrade3: {cost: 2000, maxPurchases: 3, purchasesMade: 0, autoGen: 10},
     upgrade4: {cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1}, //Not sure If autoGen is needed here, instead need to find a way to increase the currency++ to be currency +2,+5,etc.
   };
 
@@ -45,8 +44,23 @@ let upgradeCosts = {
       upgrade2CostDisplay.textContent = upgradeCosts.upgrade2.cost.toFixed(0);
       upgrade3CostDisplay.textContent = upgradeCosts.upgrade3.cost.toFixed(0);
       upgrade4CostDisplay.textContent = upgradeCosts.upgrade4.cost.toFixed(0);
-      currencyDisplay.textContent = currency;
+      updateTotalAutogenRate();
   }
+
+
+
+  function updateTotalAutogenRate() {
+    // Calculate the total autogen rate based on purchases
+    let totalAutogenRate = 0;
+
+    // Add up the rates for each upgrade, multiplying by the number of purchases
+    totalAutogenRate += upgradeCosts.upgrade1.autoGen * upgradeCosts.upgrade1.purchasesMade;
+    totalAutogenRate += upgradeCosts.upgrade2.autoGen * upgradeCosts.upgrade2.purchasesMade;
+    totalAutogenRate += upgradeCosts.upgrade3.autoGen * upgradeCosts.upgrade3.purchasesMade;
+
+    // Display the total autogen rate in the HTML
+    document.getElementById('moneypersec').textContent = totalAutogenRate.toFixed(0);
+}
 
   let totalAutoGen = 0;
 
@@ -86,16 +100,8 @@ if (upgradeCosts[upgrade].purchasesMade === upgradeCosts[upgrade].maxPurchases) 
       upgrade4Button.textContent = messageMax;
       upgrade4Button.disabled = true;
   }
-} else {  
- // Apply the effects of the upgrade
-    if (upgrade === 'upgrade1') {
-    multiplier *= 1.5;} 
-    else if (upgrade === 'upgrade2') {
-      multiplier *= 2;}
-    else if (upgrade === 'upgrade3') {
-        multiplier *= 4;}
-    else if (upgrade === 'upgrade4') {
-        clickValue += 1;}
+} else{
+
 
     // Increase the cost
         upgradeCosts[upgrade].cost = Math.floor(upgradeCosts[upgrade].cost * costIncreaseFactor);
@@ -142,6 +148,7 @@ function autoGenerateCurrency() {
   currency += totalAutoGen;
   totalText();
 }
+
 
 //rate of auto generated currency 
 setInterval(autoGenerateCurrency, 1000);
