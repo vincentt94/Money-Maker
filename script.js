@@ -12,16 +12,17 @@ const counterEl = document.getElementById('counter');
 const modal = document.getElementById('myModal');
 const closer = document.querySelector('.close');
 const modal2 = document.getElementById('myModal2');
-// const closer2 =
-const modal3 = document.querySelector('myModal3');
-// const closer3 =
-const modal4 = document.querySelector("myModal4");
-// const closer4 = 
-const modal5 = document.querySelector('.myModal5');
+const closer2 = document.querySelector('.close2');
+const modal3 = document.getElementById('myModal3');
+const closer3 = document.querySelector('.close3')
+const modal4 = document.getElementById("myModal4");
+const closer4 =  document.querySelector('.close4')
+const modal5 = document.getElementById('myModal5');
+const closer5 = document.querySelector('.close5');
 
 const moneyMulitplier = document.getElementById('moneypersec')
 
-let currency = 95;
+let currency = 97;
 const costIncreaseFactor = 1.5;
 
 //BEGINNING BUTTON BEHAVIOR 
@@ -83,6 +84,109 @@ function canBuyUpgrade(upgrade) {
     return currency >= upgradeCosts[upgrade].cost && upgradeCosts[upgrade].purchasesMade < upgradeCosts[upgrade].maxPurchases;
 }
 
+//functions to open each modal message
+
+function openModal() {
+  modal.style.display="block";
+};
+
+function openModal2() {
+  modal2.style.display="block";
+};
+
+
+function openModal3() {
+  modal3.style.display="block";
+};
+
+
+function openModal4() {
+  modal4.style.display="block";
+};
+
+function openModal5() {
+  modal5.style.display="block";
+};
+
+//functions to close each modal message
+
+closer.onclick = function() {
+  modal.style.display="none";
+}
+
+closer2.onclick = function() {
+  modal2.style.display="none";
+}
+
+closer3.onclick = function() {
+  modal3.style.display="none";
+}
+
+closer4.onclick = function() {
+  modal4.style.display="none";
+}
+
+closer5.onclick = function() {
+  modal5.style.display="none";
+}
+
+
+
+//closes modal when clicking  
+
+window.onclick= function(event) {
+  if(event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+window.onclick= function(event) {
+  if(event.target == modal2) {
+    modal2.style.display = "none";
+  }
+}
+
+window.onclick= function(event) {
+  if(event.target == modal3) {
+    modal3.style.display = "none";
+  }
+}
+
+window.onclick= function(event) {
+  if(event.target == modal4) {
+    modal4.style.display = "none";
+  }
+}
+
+window.onclick= function(event) {
+  if(event.target == modal5) {
+    modal5.style.display = "none";
+  }
+}
+
+
+//these functions replace the alert method by opening each modal once called upon 
+
+function showAlert() {
+  openModal();
+}
+
+function showAlert2() {
+  openModal2();
+}
+
+function showAlert3() {
+  openModal3();
+}
+
+function showAlert4() {
+  openModal4();
+}
+
+function showAlert5() {
+  openModal5();
+}
+
 //buy a upgrade
 function buyUpgrade(upgrade) {
     if (canBuyUpgrade(upgrade)) {
@@ -114,49 +218,8 @@ function buyUpgrade(upgrade) {
                 upgrade4Button.textContent = messageMax;
                 upgrade4Button.disabled = true;
             }
-        } else{
-            
-            
-    //functions to open the each modal message
-
-    function openModal() {
-      modal.style.display="block";
-    };
-    
-    function openModal2() {
-      modal2.style.display="block";
-    };
-
-    
-    function openModal3() {
-      modal3.style.display="block";
-    };
-
-    
-    function openModal4() {
-      modal4.style.display="block";
-    };
-
-    //function to close the modal
-    //may have to create multiple functions (ex close2, close3, close4)
-
-    closer.onclick = function() {
-      modal.style.display="none";
-    }
-
-
-
-    //closes modal when clicking outside of it
-    //may have to create multiple functions again 
-    window.onclick= function(event) {
-      if(event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-    //this replaces the alert functionality essentially 
-    function showAlert() {
-      openModal();
-    }
+        } else{ 
+ 
 
             // Increase the cost
             upgradeCosts[upgrade].cost = Math.floor(upgradeCosts[upgrade].cost * costIncreaseFactor);
@@ -168,18 +231,22 @@ function buyUpgrade(upgrade) {
             const message4 = `You have purchased ${upgradeCosts[upgrade].purchasesMade} a Bill Upgrade! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
             if (upgrade === 'upgrade1') {
                 upgrade1Button.textContent = message1;
+                showAlert(); 
             } else if (upgrade === 'upgrade2') {
                 upgrade2Button.textContent = message2;
+                showAlert2();
             } else if (upgrade === 'upgrade3') {
                 upgrade3Button.textContent = message3;
+                showAlert3();
             } else if (upgrade === 'upgrade4') {
                 upgrade4Button.textContent = message4;
+                showAlert4();
             }
         }
         updateDisplay();
-        showAlert();
+
     } else {
-        alert("Not enough currency to buy this upgrade.");
+        showAlert5();
     }
 }
 
