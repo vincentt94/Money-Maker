@@ -12,7 +12,7 @@ const counterEl = document.getElementById('counter');
 
 const moneyMulitplier = document.getElementById('moneypersec')
 
-let currency = 1000000000;
+let currency = 15;
 const costIncreaseFactor = 1.5;
 
 
