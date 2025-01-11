@@ -22,7 +22,7 @@ const closer5 = document.querySelector('.close5');
 
 const moneyMulitplier = document.getElementById('moneypersec')
 
-let currency = 97;
+let currency = 15;
 const costIncreaseFactor = 1.5;
 
 //BEGINNING BUTTON BEHAVIOR 
@@ -79,10 +79,6 @@ function updateTotalAutogenRate() {
 
 let totalAutoGen = 0;
 
-//check to see if player has enough money to buy said upgrade and if there are any upgrades left
-function canBuyUpgrade(upgrade) {
-    return currency >= upgradeCosts[upgrade].cost && upgradeCosts[upgrade].purchasesMade < upgradeCosts[upgrade].maxPurchases;
-}
 
 //functions to open each modal message
 
@@ -132,7 +128,7 @@ closer5.onclick = function() {
 
 
 
-//closes modal when clicking  
+//closes modal when clicking anywhere 
 
 window.onclick= function(event) {
   if(event.target == modal) {
@@ -187,9 +183,13 @@ function showAlert5() {
   openModal5();
 }
 
+//check to see if player has enough money to buy said upgrade and if there are any upgrades left
+function canBuyUpgrade(upgrade) {
+    return currency >= upgradeCosts[upgrade].cost && upgradeCosts[upgrade].purchasesMade < upgradeCosts[upgrade].maxPurchases;
+}
 //buy a upgrade
 function buyUpgrade(upgrade) {
-    if (canBuyUpgrade(upgrade)) {
+  if (canBuyUpgrade(upgrade)) {
         //total currency subtracted by the cost  of upgrade
         currency -= upgradeCosts[upgrade].cost; 
         //increase the count to purchases made
@@ -219,16 +219,14 @@ function buyUpgrade(upgrade) {
                 upgrade4Button.disabled = true;
             }
         } else{ 
- 
-
             // Increase the cost
             upgradeCosts[upgrade].cost = Math.floor(upgradeCosts[upgrade].cost * costIncreaseFactor);
             
             // Message to show purchase was successful, and the new upgrade cost
-            const message1 = `You have purchased ${upgradeCosts[upgrade].purchasesMade} Worker(s)! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
-            const message2 = `You have purchased ${upgradeCosts[upgrade].purchasesMade} Factory(s)! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
-            const message3 = `You have purchased ${upgradeCosts[upgrade].purchasesMade} Money Printer(s)! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
-            const message4 = `You have purchased ${upgradeCosts[upgrade].purchasesMade} a Bill Upgrade! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
+            const message1 = `You now have ${upgradeCosts[upgrade].purchasesMade} Worker(s)! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
+            const message2 = `You now have ${upgradeCosts[upgrade].purchasesMade} Factory(s)! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
+            const message3 = `You now have ${upgradeCosts[upgrade].purchasesMade} Money Printer(s)! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
+            const message4 = `You now have ${upgradeCosts[upgrade].purchasesMade} a Bill Upgrade! Upgrade cost increased to: ${upgradeCosts[upgrade].cost}`;
             if (upgrade === 'upgrade1') {
                 upgrade1Button.textContent = message1;
                 showAlert(); 
@@ -292,6 +290,3 @@ setInterval(autoGenerateCurrency, 1000);
   });
 
     updateDisplay();
-
-
-  
