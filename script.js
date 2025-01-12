@@ -63,15 +63,14 @@ function updateDisplay() {
 }
 
 
-// vincents note - i believe this code here is increasing the multipier without checking to see if theres enough currency for purchase 
-/* this breaks the code so the modals don't pop up.  I believe Its correct but will need to test it 
+/* vincents note - i believe this code here is increasing the multipier without checking to see if theres enough currency for purchase 
+eventlistener shouldn't be needed because it will stil allow user to click the bill upgrade even without enough currency
     upgrade4Button.addEventListener('click', function () {
         clickValue += 1;
         totalText();
     };
-
-
-*/
+    I fixed button 4 by increasing the multipler on line 260
+delete these lines whenever appropriate */
 
 
 function updateTotalAutogenRate() {
