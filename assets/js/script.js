@@ -283,16 +283,12 @@ function autoGenerateCurrency() {
     if (upgradeCosts.upgrade3.purchasesMade > 0) {
         currency += upgradeCosts.upgrade3.autoGen * upgradeCosts.upgrade3.purchasesMade;
     }
- //   totalText();
 
     currency += totalAutoGen;
     totalText();
     saveData();
 }
 
-//combine autoGens into one value so rates stack and combine
-//function autoGenerateCurrency() {
-//}
 
 // Save to localStorage
 function saveData() {
