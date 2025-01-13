@@ -201,10 +201,10 @@ function buyUpgrade(upgrade) {
         // Check if max purchases are reached for the current upgrade
         if (upgradeCosts[upgrade].purchasesMade === upgradeCosts[upgrade].maxPurchases) {
             // Show message when the max purchases are reached
-            const messageMax = `You have purchased the maximum number for workers.`;
-            const messageMax2 = `You have purchased the maximum number for factories.`;
-            const messageMax3 = `You have purchased the maximum number for money printers.`;
-            const messageMax4 = `You have purchased the maximum number for bill upgrades.`;
+            const messageMax = `You have purchased the maximum number 🧑‍💼🧑‍💼🧑‍💼🧑‍💼🧑‍💼 of workers.`;
+            const messageMax2 = `You have purchased the maximum number 🏭🏭🏭🏭 of factories.`;
+            const messageMax3 = `You have purchased the maximum number 🤑🤑🤑 of money printers.`;
+            const messageMax4 = `You have purchased the maximum number 💸💸💸💸 of bill upgrades.`;
 
             // Update button text with the max purchase message
             if (upgrade === 'upgrade1') {
@@ -224,11 +224,16 @@ function buyUpgrade(upgrade) {
             // Increase the cost
             upgradeCosts[upgrade].cost = Math.floor(upgradeCosts[upgrade].cost * costIncreaseFactor);
 
+            const workerEffect = '🧑‍💼';
+            const factoryEffect = '🏭';
+            const printerEffect = '🤑';
+            const bigBillEffect = '💸';
+
             // Message to show purchase was successful, and the new upgrade cost
-            const message1 = `You now have ${upgradeCosts[upgrade].purchasesMade} Worker(s)!`;
-            const message2 = `You now have ${upgradeCosts[upgrade].purchasesMade} Factory(s)!`;
-            const message3 = `You now have ${upgradeCosts[upgrade].purchasesMade} Money Printer(s)!`;
-            const message4 = `You now have ${upgradeCosts[upgrade].purchasesMade}  Bill Upgrade(s)!`;
+            const message1 = `You now have ${upgradeCosts[upgrade].purchasesMade} ${workerEffect.repeat (upgradeCosts[upgrade].purchasesMade)} Worker(s)!`;
+            const message2 = `You now have ${upgradeCosts[upgrade].purchasesMade} ${factoryEffect.repeat (upgradeCosts[upgrade].purchasesMade)} Factory(s)!`;
+            const message3 = `You now have ${upgradeCosts[upgrade].purchasesMade} ${printerEffect.repeat (upgradeCosts[upgrade].purchasesMade)} Money Printer(s)!`;
+            const message4 = `You now have ${upgradeCosts[upgrade].purchasesMade} ${bigBillEffect.repeat (upgradeCosts[upgrade].purchasesMade)} Bill Upgrade(s)!`;
 
             if (upgrade === 'upgrade1') {
                 upgrade1Button.textContent = message1;
