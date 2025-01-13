@@ -25,7 +25,6 @@ const moneyPrinterUpgrade = document.getElementById('moneyPrinterUpgrade');
 const billUpgrade = document.getElementById('billUpgrade');
 const moneyMulitplier = document.getElementById('moneypersec')
 
-//let currency = 15000;
 const costIncreaseFactor = 1.5;
 
 //BEGINNING BUTTON BEHAVIOR 
@@ -38,7 +37,7 @@ let upgradeCosts = JSON.parse(localStorage.getItem('upgradeCosts')) || {
     upgrade1: { cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1 },
     upgrade2: { cost: 1000, maxPurchases: 4, purchasesMade: 0, autoGen: 5 },
     upgrade3: { cost: 2000, maxPurchases: 3, purchasesMade: 0, autoGen: 10 },
-    upgrade4: { cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1 },
+    upgrade4: { cost: 500, maxPurchases: 4, purchasesMade: 0 },
 };
 
 
@@ -55,19 +54,6 @@ generateEl.addEventListener('click', function () {
     totalText();
     saveData();
 });
-
-upgrade4Button.addEventListener('click', function () {
-    clickValue += 1;
-    totalText();
-    saveData();
-});
-//UPGRADE EFFECTS //DELETE? moved to local storage
-//let upgradeCosts = {
-//    upgrade1: {cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1,},
-//    upgrade2: {cost: 1000, maxPurchases: 4, purchasesMade: 0, autoGen: 5},
-//    upgrade3: {cost: 2000, maxPurchases: 3, purchasesMade: 0, autoGen: 10},
-//    upgrade4: {cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1}, //Not sure If autoGen is needed here, instead need to find a way to increase the currency++ to be currency +2,+5,etc.
-//};
 
 //SHOWS CURRENT  PRICE OF EACH UPGRADE AND UPDATES CURRENT MONEY SHOWN
 function updateDisplay() {
@@ -207,15 +193,11 @@ function buyUpgrade(upgrade) {
         //increase the count to purchases made
         upgradeCosts[upgrade].purchasesMade++;
 
-        //add the autoGen rate of the current upgrade to the totalAutoGen
-        if (upgradeCosts[upgrade].autoGen) {
+         //add the autoGen rate of the current upgrade to the totalAutoGen
+         if (upgradeCosts[upgrade].autoGen) {
             totalAutoGen += upgradeCosts[upgrade].autoGen;
         }
-        //add the bill upgrade rate of the current upgrade to the clickvalue
-        if (upgradeCosts[upgrade].clickValue) {
-            clickValue += upgradeCosts[upgrade].clickValue;
-        }
-        
+
         // Check if max purchases are reached for the current upgrade
         if (upgradeCosts[upgrade].purchasesMade === upgradeCosts[upgrade].maxPurchases) {
             // Show message when the max purchases are reached
@@ -270,7 +252,7 @@ function buyUpgrade(upgrade) {
         }
         updateDisplay();
         alert(`${upgrade} purchased!`);
-        saveData();
+       saveData();
 
     } else {
         showAlert5();
