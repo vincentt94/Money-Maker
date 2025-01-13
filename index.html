@@ -3,40 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Money Maker</title>
     <link rel="stylesheet" href="./styles.css"/>
 </head>
 <!-- Created by: Jacobus, Jake, -->
 
-<body>
+<body class="container-fluid text-center text-white" style="background-image: url('https://plus.unsplash.com/premium_photo-1681469490587-cf7ff1d6fc00?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bW9uZXklMjBwaWxlfGVufDB8fDB8fHww');">
     <header>
         <!-- Name of application -->
-         <h1>Name of Game</h1>
+         <h1>Money Maker</h1>
 
     </header>
 
     <main>
         <!-- This first div encapsulates all of the functionality as a container -->
-        <div class="container"> 
+        <div> 
 
             <!-- Currency Counter -->
             <div class="moneyCounter">
-                <p>Total Money $<span id="counter">100000</span></p>
+                <p>Total Money $<span id="counter"></span></p>
             </div>
             
             <!-- Clickable Money Icon -->
 
             <div class="toolTipMoneyButton">
                 <button class= "live-button-border" id ="generate">$</button> 
-                <span class ="toolTipTextMoneyButton">Click here to start generating money!</span>
-
             </div>
             
+            
             <div>
-                <!-- Multiplier = Total Amount of Currency Rate increases (Add Multipliers together) -->
-                <div>
-                    <section>    
-                        <!-- Create function to know the multiplier total -->
+                <section>    
+                        <span class ="toolTipTextMoneyButton">Click here to start generating money!</span>
+                        <!-- Multiplier = Total Amount of Currency Rate increases (Add Multipliers together) -->
                         <p>Money Per Second: $<span id="moneypersec">0</span></p>
                     </section>
                     <section>
@@ -45,40 +43,76 @@
                 </div>
                 
                 <!-- Upgrades Section -->
-                <div class="upgradeBar">
-                    <div id="hireWorker">
-                        <div class="toolTip1">
-                            <h3>Workers</h3>
-                            <p>Cost: $<span id="upgradecost1">100</span></p>
-                            <button id="upgrade1-button">Buy Worker</button>
-                            <span class="toolTipText1">Description for buy worker</span>
+                <div>
+                    <div class="row">
+                        <div id="hireWorker" class="col-lg-3">
+                            <div class="toolTip1">
+                                <h3>Workers</h3>
+                                <p>Cost: $<span id="upgradecost1">100</span></p>
+                                <button id="upgrade1-button">Buy Worker</button>
+                             <span class="toolTipText1">Earn one extra currency for each second that passes with a worker</span>
+                            </div>
                         </div>
-                    </div>
-                    <div id="upgradeOption2">
+                     <div id="upgradeOption2" class="col-lg-3">
                         <div class="toolTip2">
                             <h3>Factory</h3>
                             <p>Cost: $<span id="upgradecost2">1000</span></p>  
                             <button id="upgrade2-button">Buy Factory</button>
-                            <span class="toolTipText2">Description for buy factor</span>
+                            <span class="toolTipText2">Earn five extra currency for each second that passes with a factory</span>
                         </div>
-                    </div>
-                    <div id="upgradeOption3">
+                     </div>
+                      <div id="upgradeOption3" class="col-lg-3">
                         <div class="toolTip3">
                             <h3>Money Printer</h3>
                             <p>Cost: $<span id="upgradecost3">2000</span></p> 
                             <button id="upgrade3-button">Buy Money Printer</button>
-                            <span class="toolTipText3">Description for buy money printer</span>
+                            <span class="toolTipText3">Earn ten extra curreny for each second that passes with a money printer</span>
                         </div>
-                    </div>
-                    <div id="upgradeOption4">
+                      </div>
+                     <div id="upgradeOption4" class="col-lg-3">
                         <div class="toolTip4">
                             <h3>Bill Upgrade</h3>
                             <p>Cost: $<span id="upgradecost4">500</span></p>
                             <button id="upgrade4-button">Buy Bill Upgrade</button>
-                            <span class="toolTipText4">Description for buy bill upgrade</span>
+                            <span class="toolTipText4">Increase your currency generated from each click with a bill upgrade</span>
                         </div>
-                    </div>
+                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Modal Designs & Messages-->
+        <div id="myModal" class ="modal close"> 
+            <div class ="modal-content">
+                <p> You purchased a worker</p>
+                <p id = "workerUpgrade"> </p>
+            </div>
+        </div>
+
+        <div id="myModal2" class ="modal2 close2"> 
+            <div class ="modal-content2">
+                <p> You purchased a factory</p>
+                <p id = "factoryUpgrade"> </p>
+            </div>
+        </div>
+
+        <div id="myModal3" class ="modal3 close3"> 
+            <div class ="modal-content3">
+                <p> You purchased a money printer</p>
+                <p id = "moneyPrinterUpgrade"> </p>
+            </div>
+        </div>
+
+        <div id="myModal4" class ="modal4 close4"> 
+            <div class ="modal-content4">
+                <p> You purchased a bill upgrade</p>
+                <p id = "billUpgrade"> </p>
+            </div>
+        </div>
+
+        <div id="myModal5" class ="modal5 close5"> 
+            <div class ="modal-content5">
+                <p> Not enough currency to buy this upgrade</p>
             </div>
         </div>
 
