@@ -250,14 +250,22 @@ function buyUpgrade(upgrade) {
             } else if (upgrade === 'upgrade4') {
                 upgrade4Button.textContent = message4;
                 billUpgrade.textContent = `Upgrade cost increased to: $${upgradeCosts[upgrade].cost}`
-                //this line below fixes the multiplier issue from line 66 
                 clickValue += 1;
+                if(clickValue == 2){
+                    clickValue = 5;
+                } 
+                if(clickValue == 6){
+                    clickValue =10;
+                }
+                if(clickValue == 11){
+                    clickValue =20;
+                }
+
                 showAlert4();
             }
         }
         updateDisplay();
-        alert(`${upgrade} purchased!`);
-       saveData();
+        saveData();
 
     } else {
         showAlert5();
