@@ -25,11 +25,22 @@ const moneyPrinterUpgrade = document.getElementById('moneyPrinterUpgrade');
 const billUpgrade = document.getElementById('billUpgrade');
 const moneyMulitplier = document.getElementById('moneypersec')
 
-let currency = 15000;
+//let currency = 15000;
 const costIncreaseFactor = 1.5;
 
 //BEGINNING BUTTON BEHAVIOR 
 let clickValue = 1;
+
+//Client-side storage
+let currency = parseInt(localStorage.getItem('currency')) || 0; 
+let totalAutoGen = parseFloat(localStorage.getItem('totalAutoGen')) || 0;
+let upgradeCosts = JSON.parse(localStorage.getItem('upgradeCosts')) || {
+    upgrade1: { cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1 },
+    upgrade2: { cost: 1000, maxPurchases: 4, purchasesMade: 0, autoGen: 5 },
+    upgrade3: { cost: 2000, maxPurchases: 3, purchasesMade: 0, autoGen: 10 },
+    upgrade4: { cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1 },
+};
+
 
 //updates the users total money count 
 function totalText() {
@@ -42,15 +53,21 @@ function totalText() {
 generateEl.addEventListener('click', function () {
     currency += clickValue;
     totalText();
+    saveData();
 });
 
-//UPGRADE EFFECTS
-let upgradeCosts = {
-    upgrade1: { cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1, },
-    upgrade2: { cost: 1000, maxPurchases: 4, purchasesMade: 0, autoGen: 5 },
-    upgrade3: { cost: 2000, maxPurchases: 3, purchasesMade: 0, autoGen: 10 },
-    upgrade4: { cost: 500, maxPurchases: 4, purchasesMade: 0, clickValue: 0 }, //Not sure If autoGen is needed here, instead need to find a way to increase the currency++ to be currency +2,+5,etc.
-};
+upgrade4Button.addEventListener('click', function () {
+    clickValue += 1;
+    totalText();
+    saveData();
+});
+//UPGRADE EFFECTS //DELETE? moved to local storage
+//let upgradeCosts = {
+//    upgrade1: {cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1,},
+//    upgrade2: {cost: 1000, maxPurchases: 4, purchasesMade: 0, autoGen: 5},
+//    upgrade3: {cost: 2000, maxPurchases: 3, purchasesMade: 0, autoGen: 10},
+//    upgrade4: {cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1}, //Not sure If autoGen is needed here, instead need to find a way to increase the currency++ to be currency +2,+5,etc.
+//};
 
 //SHOWS CURRENT  PRICE OF EACH UPGRADE AND UPDATES CURRENT MONEY SHOWN
 function updateDisplay() {
@@ -70,9 +87,9 @@ function updateTotalAutogenRate() {
     totalAutogenRate += upgradeCosts.upgrade3.autoGen * upgradeCosts.upgrade3.purchasesMade;
     
     document.getElementById('moneypersec').textContent = totalAutogenRate.toFixed(0);
+    totalAutoGen = totalAutogenRate;
 }
 
-let totalAutoGen = 0;
 
 
 //functions to open each modal message
@@ -252,6 +269,8 @@ function buyUpgrade(upgrade) {
             }
         }
         updateDisplay();
+        alert(`${upgrade} purchased!`);
+        saveData();
 
     } else {
         showAlert5();
@@ -277,8 +296,16 @@ function autoGenerateCurrency() {
 
 //combine autoGens into one value so rates stack and combine
 function autoGenerateCurrency() {
-    currency += totalAutoGen;
-    totalText();
+  currency += totalAutoGen;
+  totalText();
+  saveData();
+}
+
+// Save to localStorage
+function saveData() {
+    localStorage.setItem('currency', currency);
+    localStorage.setItem('totalAutoGen', totalAutoGen);
+    localStorage.setItem('upgradeCosts', JSON.stringify(upgradeCosts)); // Save upgrade data
 }
 
 
