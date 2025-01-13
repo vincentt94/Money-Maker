@@ -193,6 +193,11 @@ function buyUpgrade(upgrade) {
         //increase the count to purchases made
         upgradeCosts[upgrade].purchasesMade++;
 
+         //add the autoGen rate of the current upgrade to the totalAutoGen
+         if (upgradeCosts[upgrade].autoGen) {
+            totalAutoGen += upgradeCosts[upgrade].autoGen;
+        }
+
         // Check if max purchases are reached for the current upgrade
         if (upgradeCosts[upgrade].purchasesMade === upgradeCosts[upgrade].maxPurchases) {
             // Show message when the max purchases are reached
