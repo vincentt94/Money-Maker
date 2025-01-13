@@ -23,14 +23,23 @@ const workerUpgrade = document.getElementById('workerUpgrade');
 const factoryUpgrade = document.getElementById('factoryUpgrade');
 const moneyPrinterUpgrade = document.getElementById('moneyPrinterUpgrade');
 const billUpgrade = document.getElementById('billUpgrade');
-
 const moneyMulitplier = document.getElementById('moneypersec')
 
-let currency = 15000;
+//let currency = 15000;
 const costIncreaseFactor = 1.5;
 
 //BEGINNING BUTTON BEHAVIOR 
 let clickValue = 1;
+
+//Client-side storage
+let currency = parseInt(localStorage.getItem('currency')) || 0; 
+let totalAutoGen = parseFloat(localStorage.getItem('totalAutoGen')) || 0;
+let upgradeCosts = JSON.parse(localStorage.getItem('upgradeCosts')) || {
+    upgrade1: { cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1 },
+    upgrade2: { cost: 1000, maxPurchases: 4, purchasesMade: 0, autoGen: 5 },
+    upgrade3: { cost: 2000, maxPurchases: 3, purchasesMade: 0, autoGen: 10 },
+    upgrade4: { cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1 },
+};
 
 
 //updates the users total money count 
@@ -39,19 +48,26 @@ function totalText() {
     moneyMulitplier.textcontent = totalAutoGen;
     generateEl.textContent = `$${clickValue}`;
 };
+
 // increases total money by 1 for each click
 generateEl.addEventListener('click', function () {
     currency += clickValue;
     totalText();
+    saveData();
 });
 
-//UPGRADE EFFECTS
-let upgradeCosts = {
-    upgrade1: { cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1, },
-    upgrade2: { cost: 1000, maxPurchases: 4, purchasesMade: 0, autoGen: 5 },
-    upgrade3: { cost: 2000, maxPurchases: 3, purchasesMade: 0, autoGen: 10 },
-    upgrade4: { cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1 }, //Not sure If autoGen is needed here, instead need to find a way to increase the currency++ to be currency +2,+5,etc.
-};
+upgrade4Button.addEventListener('click', function () {
+    clickValue += 1;
+    totalText();
+    saveData();
+});
+//UPGRADE EFFECTS //DELETE? moved to local storage
+//let upgradeCosts = {
+//    upgrade1: {cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1,},
+//    upgrade2: {cost: 1000, maxPurchases: 4, purchasesMade: 0, autoGen: 5},
+//    upgrade3: {cost: 2000, maxPurchases: 3, purchasesMade: 0, autoGen: 10},
+//    upgrade4: {cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1}, //Not sure If autoGen is needed here, instead need to find a way to increase the currency++ to be currency +2,+5,etc.
+//};
 
 //SHOWS CURRENT  PRICE OF EACH UPGRADE AND UPDATES CURRENT MONEY SHOWN
 function updateDisplay() {
@@ -62,31 +78,18 @@ function updateDisplay() {
     updateTotalAutogenRate();
 }
 
-
-/* vincents note - i believe this code here is increasing the multipier without checking to see if theres enough currency for purchase 
-eventlistener shouldn't be needed because it will stil allow user to click the bill upgrade even without enough currency
-    upgrade4Button.addEventListener('click', function () {
-        clickValue += 1;
-        totalText();
-    };
-    I fixed button 4 by increasing the multipler on line 260
-delete these lines whenever appropriate */
-
-
 function updateTotalAutogenRate() {
-    // Calculate the total autogen rate based on purchases
     let totalAutogenRate = 0;
 
     // Add up the rates for each upgrade, multiplying by the number of purchases
     totalAutogenRate += upgradeCosts.upgrade1.autoGen * upgradeCosts.upgrade1.purchasesMade;
     totalAutogenRate += upgradeCosts.upgrade2.autoGen * upgradeCosts.upgrade2.purchasesMade;
     totalAutogenRate += upgradeCosts.upgrade3.autoGen * upgradeCosts.upgrade3.purchasesMade;
-
-    // Display the total autogen rate in the HTML
+    
     document.getElementById('moneypersec').textContent = totalAutogenRate.toFixed(0);
+    totalAutoGen = totalAutogenRate;
 }
 
-let totalAutoGen = 0;
 
 
 //functions to open each modal message
@@ -208,7 +211,11 @@ function buyUpgrade(upgrade) {
         if (upgradeCosts[upgrade].autoGen) {
             totalAutoGen += upgradeCosts[upgrade].autoGen;
         }
-
+        //add the bill upgrade rate of the current upgrade to the clickvalue
+        if (upgradeCosts[upgrade].clickValue) {
+            clickValue += upgradeCosts[upgrade].clickValue;
+        }
+        
         // Check if max purchases are reached for the current upgrade
         if (upgradeCosts[upgrade].purchasesMade === upgradeCosts[upgrade].maxPurchases) {
             // Show message when the max purchases are reached
@@ -262,6 +269,8 @@ function buyUpgrade(upgrade) {
             }
         }
         updateDisplay();
+        alert(`${upgrade} purchased!`);
+        saveData();
 
     } else {
         showAlert5();
@@ -287,8 +296,16 @@ function autoGenerateCurrency() {
 
 //combine autoGens into one value so rates stack and combine
 function autoGenerateCurrency() {
-    currency += totalAutoGen;
-    totalText();
+  currency += totalAutoGen;
+  totalText();
+  saveData();
+}
+
+// Save to localStorage
+function saveData() {
+    localStorage.setItem('currency', currency);
+    localStorage.setItem('totalAutoGen', totalAutoGen);
+    localStorage.setItem('upgradeCosts', JSON.stringify(upgradeCosts)); // Save upgrade data
 }
 
 
