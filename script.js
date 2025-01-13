@@ -28,7 +28,8 @@ const moneyMulitplier = document.getElementById('moneypersec')
 const costIncreaseFactor = 1.5;
 
 //BEGINNING BUTTON BEHAVIOR 
-let clickValue = 1;
+
+let clickValue  = parseInt(sessionStorage.getItem('generate')) || 1;
 
 //Client-side storage
 let currency = parseInt(sessionStorage.getItem('currency')) || 0; 
@@ -297,6 +298,7 @@ function saveData() {
     sessionStorage.setItem('currency', currency);
     sessionStorage.setItem('totalAutoGen', totalAutoGen);
     sessionStorage.setItem('upgradeCosts', JSON.stringify(upgradeCosts)); // Save upgrade data
+    sessionStorage.setItem('generate',clickValue);
 }
 
 
