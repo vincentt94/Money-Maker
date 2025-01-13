@@ -294,9 +294,9 @@ function autoGenerateCurrency() {
 
 // Save to localStorage
 function saveData() {
-    localStorage.setItem('currency', currency);
-    localStorage.setItem('totalAutoGen', totalAutoGen);
-    localStorage.setItem('upgradeCosts', JSON.stringify(upgradeCosts)); // Save upgrade data
+    sessionStorage.setItem('currency', currency);
+    sessionStorage.setItem('totalAutoGen', totalAutoGen);
+    sessionStorage.setItem('upgradeCosts', JSON.stringify(upgradeCosts)); // Save upgrade data
 }
 
 
