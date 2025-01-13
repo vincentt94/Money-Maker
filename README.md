@@ -17,3 +17,7 @@
 
 # Technologies
 HTML5, CSS3, Javascript, Bootstrap
+
+# Deep-Dive
+We call all of our html variables at the top of the page so we can access them globally.
+When the page is first opened, or refreshed, it checks for any currency(total money), clickValue(clicker increase rate), totalAutoGen(multiplicable rate that could have increased if upgrades were purchased), upgradeCosts(upgrade purchases count).
