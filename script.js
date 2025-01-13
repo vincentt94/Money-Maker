@@ -31,9 +31,9 @@ const costIncreaseFactor = 1.5;
 let clickValue = 1;
 
 //Client-side storage
-let currency = parseInt(localStorage.getItem('currency')) || 0; 
-let totalAutoGen = parseFloat(localStorage.getItem('totalAutoGen')) || 0;
-let upgradeCosts = JSON.parse(localStorage.getItem('upgradeCosts')) || {
+let currency = parseInt(sessionStorage.getItem('currency')) || 0; 
+let totalAutoGen = parseFloat(sessionStorage.getItem('totalAutoGen')) || 0;
+let upgradeCosts = JSON.parse(sessionStorage.getItem('upgradeCosts')) || {
     upgrade1: { cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1 },
     upgrade2: { cost: 1000, maxPurchases: 4, purchasesMade: 0, autoGen: 5 },
     upgrade3: { cost: 2000, maxPurchases: 3, purchasesMade: 0, autoGen: 10 },
@@ -273,21 +273,22 @@ function autoGenerateCurrency() {
     if (upgradeCosts.upgrade3.purchasesMade > 0) {
         currency += upgradeCosts.upgrade3.autoGen * upgradeCosts.upgrade3.purchasesMade;
     }
+ //   totalText();
+
+    currency += totalAutoGen;
     totalText();
+    saveData();
 }
 
 //combine autoGens into one value so rates stack and combine
-function autoGenerateCurrency() {
-  currency += totalAutoGen;
-  totalText();
-  saveData();
-}
+//function autoGenerateCurrency() {
+//}
 
 // Save to localStorage
 function saveData() {
-    localStorage.setItem('currency', currency);
-    localStorage.setItem('totalAutoGen', totalAutoGen);
-    localStorage.setItem('upgradeCosts', JSON.stringify(upgradeCosts)); // Save upgrade data
+    sessionStorage.setItem('currency', currency);
+    sessionStorage.setItem('totalAutoGen', totalAutoGen);
+    sessionStorage.setItem('upgradeCosts', JSON.stringify(upgradeCosts)); // Save upgrade data
 }
 
 
