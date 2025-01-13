@@ -9,15 +9,13 @@ const upgrade3Button = document.getElementById('upgrade3-button');
 const upgrade4Button = document.getElementById('upgrade4-button');
 const generateEl = document.getElementById('generate');
 const counterEl = document.getElementById('counter');
-
 const moneyMulitplier = document.getElementById('moneypersec')
 
-let currency = 1000000000;
+let currency = 0;
 const costIncreaseFactor = 1.5;
 
 //BEGINNING BUTTON BEHAVIOR 
 let clickValue = 1;
-
 
 //updates the users total money count 
 function totalText() {
@@ -25,16 +23,13 @@ function totalText() {
     moneyMulitplier.textcontent = totalAutoGen;
     generateEl.textContent = `$${clickValue}`;
 };
+
 // increases total money by 1 for each click
 generateEl.addEventListener('click', function () {
     currency += clickValue;
     totalText();
 });
 
-upgrade4Button.addEventListener('click', function () {
-    clickValue += 1;
-    totalText();
-});
 //UPGRADE EFFECTS
 let upgradeCosts = {
     upgrade1: {cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1,},
@@ -52,10 +47,7 @@ function updateDisplay() {
     updateTotalAutogenRate();
 }
 
-
-
 function updateTotalAutogenRate() {
-    // Calculate the total autogen rate based on purchases
     let totalAutogenRate = 0;
     
     // Add up the rates for each upgrade, multiplying by the number of purchases
@@ -63,7 +55,6 @@ function updateTotalAutogenRate() {
     totalAutogenRate += upgradeCosts.upgrade2.autoGen * upgradeCosts.upgrade2.purchasesMade;
     totalAutogenRate += upgradeCosts.upgrade3.autoGen * upgradeCosts.upgrade3.purchasesMade;
     
-    // Display the total autogen rate in the HTML
     document.getElementById('moneypersec').textContent = totalAutogenRate.toFixed(0);
 }
 
@@ -85,6 +76,10 @@ function buyUpgrade(upgrade) {
         //add the autoGen rate of the current upgrade to the totalAutoGen
         if (upgradeCosts[upgrade].autoGen) {
             totalAutoGen += upgradeCosts[upgrade].autoGen;
+        }
+        //add the bill upgrade rate of the current upgrade to the clickvalue
+        if (upgradeCosts[upgrade].clickValue) {
+            clickValue += upgradeCosts[upgrade].clickValue;
         }
         
         // Check if max purchases are reached for the current upgrade

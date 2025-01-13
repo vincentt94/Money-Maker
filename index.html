@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Money Maker</title>
     <link rel="stylesheet" href="./styles.css"/>
 </head>
 <!-- Created by: Jacobus, Jake, -->
 
-<body>
+<body class="container-fluid text-center">
     <header>
         <!-- Name of application -->
-         <h1>Name of Game</h1>
+         <h1>Money Maker</h1>
 
     </header>
 
     <main>
         <!-- This first div encapsulates all of the functionality as a container -->
-        <div class="container"> 
+        <div> 
 
             <!-- Currency Counter -->
             <div class="moneyCounter">
-                <p>Total Money $<span id="counter">100000</span></p>
+                <p>Total Money $<span id="counter">0</span></p>
             </div>
             
             <!-- Clickable Money Icon -->
@@ -29,14 +29,12 @@
             <div class="toolTipMoneyButton">
                 <button class= "live-button-border" id ="generate">$</button> 
                 <span class ="toolTipTextMoneyButton">Click here to start generating money!</span>
-
             </div>
             
-            <div>
-                <!-- Multiplier = Total Amount of Currency Rate increases (Add Multipliers together) -->
+
                 <div>
                     <section>    
-                        <!-- Create function to know the multiplier total -->
+                        <!-- Multiplier = Total Amount of Currency Rate increases (Add Multipliers together) -->
                         <p>Money Per Second: $<span id="moneypersec">0</span></p>
                     </section>
                     <section>
@@ -45,41 +43,42 @@
                 </div>
                 
                 <!-- Upgrades Section -->
-                <div class="upgradeBar">
-                    <div id="hireWorker">
+                <div>
+                    <div class="row">
+                    <div id="hireWorker" class="col">
                         <div class="toolTip1">
                             <h3>Workers</h3>
                             <p>Cost: $<span id="upgradecost1">100</span></p>
-                            <button id="upgrade1-button">Buy Worker</button>
-                            <span class="toolTipText1">Description for buy worker</span>
+                            <button id="upgrade1-button">Buy A Worker</button>
+                            <span class="toolTipText1">Workers will give you $1 per second</span>
                         </div>
                     </div>
-                    <div id="upgradeOption2">
+                    <div id="upgradeOption2" class="col">
                         <div class="toolTip2">
                             <h3>Factory</h3>
                             <p>Cost: $<span id="upgradecost2">1000</span></p>  
-                            <button id="upgrade2-button">Buy Factory</button>
-                            <span class="toolTipText2">Description for buy factor</span>
+                            <button id="upgrade2-button">Buy A Factory</button>
+                            <span class="toolTipText2">Factories will give you $5 per second </span>
                         </div>
                     </div>
-                    <div id="upgradeOption3">
+                    <div id="upgradeOption3" class="col">
                         <div class="toolTip3">
                             <h3>Money Printer</h3>
                             <p>Cost: $<span id="upgradecost3">2000</span></p> 
-                            <button id="upgrade3-button">Buy Money Printer</button>
-                            <span class="toolTipText3">Description for buy money printer</span>
+                            <button id="upgrade3-button">Buy A Money Printer</button>
+                            <span class="toolTipText3">A money printer will give you $10 per second</span>
                         </div>
                     </div>
-                    <div id="upgradeOption4">
+                    <div id="upgradeOption4" class="col">
                         <div class="toolTip4">
                             <h3>Bill Upgrade</h3>
                             <p>Cost: $<span id="upgradecost4">500</span></p>
                             <button id="upgrade4-button">Buy Bill Upgrade</button>
-                            <span class="toolTipText4">Description for buy bill upgrade</span>
+                            <span class="toolTipText4">The bill upgrade will increase the value of every click!</span>
                         </div>
                     </div>
+                    </div>
                 </div>
-            </div>
         </div>
 
 <script src ="./script.js"> </script>
