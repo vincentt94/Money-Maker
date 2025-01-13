@@ -25,20 +25,19 @@ const moneyPrinterUpgrade = document.getElementById('moneyPrinterUpgrade');
 const billUpgrade = document.getElementById('billUpgrade');
 const moneyMulitplier = document.getElementById('moneypersec')
 
- //let currency = 15000;
 const costIncreaseFactor = 1.5;
 
 //BEGINNING BUTTON BEHAVIOR 
 let clickValue = 1;
 
 //Client-side storage
-let currency = parseInt(localStorage.getItem('currency')) || 0; 
-let totalAutoGen = parseFloat(localStorage.getItem('totalAutoGen')) || 0;
-let upgradeCosts = JSON.parse(localStorage.getItem('upgradeCosts')) || {
+let currency = parseInt(sessionStorage.getItem('currency')) || 0; 
+let totalAutoGen = parseFloat(sessionStorage.getItem('totalAutoGen')) || 0;
+let upgradeCosts = JSON.parse(sessionStorage.getItem('upgradeCosts')) || {
     upgrade1: { cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1 },
     upgrade2: { cost: 1000, maxPurchases: 4, purchasesMade: 0, autoGen: 5 },
     upgrade3: { cost: 2000, maxPurchases: 3, purchasesMade: 0, autoGen: 10 },
-    upgrade4: { cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1 },
+    upgrade4: { cost: 500, maxPurchases: 4, purchasesMade: 0 },
 };
 
 
@@ -194,15 +193,11 @@ function buyUpgrade(upgrade) {
         //increase the count to purchases made
         upgradeCosts[upgrade].purchasesMade++;
 
-        //add the autoGen rate of the current upgrade to the totalAutoGen
-        if (upgradeCosts[upgrade].autoGen) {
+         //add the autoGen rate of the current upgrade to the totalAutoGen
+         if (upgradeCosts[upgrade].autoGen) {
             totalAutoGen += upgradeCosts[upgrade].autoGen;
         }
-        //add the bill upgrade rate of the current upgrade to the clickvalue
-        if (upgradeCosts[upgrade].clickValue) {
-            clickValue += upgradeCosts[upgrade].clickValue;
-        }
-        
+
         // Check if max purchases are reached for the current upgrade
         if (upgradeCosts[upgrade].purchasesMade === upgradeCosts[upgrade].maxPurchases) {
             // Show message when the max purchases are reached
@@ -255,7 +250,7 @@ function buyUpgrade(upgrade) {
             }
         }
         updateDisplay();
-
+        alert(`${upgrade} purchased!`);
         saveData();
 
     } else {
@@ -277,22 +272,23 @@ function autoGenerateCurrency() {
     if (upgradeCosts.upgrade3.purchasesMade > 0) {
         currency += upgradeCosts.upgrade3.autoGen * upgradeCosts.upgrade3.purchasesMade;
     }
+ //   totalText();
+
+    currency += totalAutoGen;
     totalText();
+    saveData();
 }
 
 //combine autoGens into one value so rates stack and combine
-function autoGenerateCurrency() {
-  currency += totalAutoGen;
-  totalText();
-  saveData();
-}
+//function autoGenerateCurrency() {
+//}
 
-// Save to localStorage 
- function saveData() {
+// Save to localStorage
+function saveData() {
     localStorage.setItem('currency', currency);
     localStorage.setItem('totalAutoGen', totalAutoGen);
     localStorage.setItem('upgradeCosts', JSON.stringify(upgradeCosts)); // Save upgrade data
-} 
+}
 
 
 //rate of auto generated currency 
