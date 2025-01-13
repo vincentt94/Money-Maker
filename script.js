@@ -246,11 +246,20 @@ function buyUpgrade(upgrade) {
                 upgrade4Button.textContent = message4;
                 billUpgrade.textContent = `Upgrade cost increased to: $${upgradeCosts[upgrade].cost}`
                 clickValue += 1;
+                if(clickValue == 2){
+                    clickValue = 5;
+                } 
+                if(clickValue == 6){
+                    clickValue =10;
+                }
+                if(clickValue == 11){
+                    clickValue =20;
+                }
+
                 showAlert4();
             }
         }
         updateDisplay();
-        alert(`${upgrade} purchased!`);
         saveData();
 
     } else {
