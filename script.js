@@ -25,7 +25,7 @@ const moneyPrinterUpgrade = document.getElementById('moneyPrinterUpgrade');
 const billUpgrade = document.getElementById('billUpgrade');
 const moneyMulitplier = document.getElementById('moneypersec')
 
-//let currency = 15000;
+ //let currency = 15000;
 const costIncreaseFactor = 1.5;
 
 //BEGINNING BUTTON BEHAVIOR 
@@ -55,19 +55,6 @@ generateEl.addEventListener('click', function () {
     totalText();
     saveData();
 });
-
-upgrade4Button.addEventListener('click', function () {
-    clickValue += 1;
-    totalText();
-    saveData();
-});
-//UPGRADE EFFECTS //DELETE? moved to local storage
-//let upgradeCosts = {
-//    upgrade1: {cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1,},
-//    upgrade2: {cost: 1000, maxPurchases: 4, purchasesMade: 0, autoGen: 5},
-//    upgrade3: {cost: 2000, maxPurchases: 3, purchasesMade: 0, autoGen: 10},
-//    upgrade4: {cost: 500, maxPurchases: 5, purchasesMade: 0, clickValue: 1}, //Not sure If autoGen is needed here, instead need to find a way to increase the currency++ to be currency +2,+5,etc.
-//};
 
 //SHOWS CURRENT  PRICE OF EACH UPGRADE AND UPDATES CURRENT MONEY SHOWN
 function updateDisplay() {
@@ -263,13 +250,12 @@ function buyUpgrade(upgrade) {
             } else if (upgrade === 'upgrade4') {
                 upgrade4Button.textContent = message4;
                 billUpgrade.textContent = `Upgrade cost increased to: $${upgradeCosts[upgrade].cost}`
-                //this line below fixes the multiplier issue from line 66 
                 clickValue += 1;
                 showAlert4();
             }
         }
         updateDisplay();
-        alert(`${upgrade} purchased!`);
+
         saveData();
 
     } else {
@@ -301,12 +287,12 @@ function autoGenerateCurrency() {
   saveData();
 }
 
-// Save to localStorage
-function saveData() {
+// Save to localStorage 
+ function saveData() {
     localStorage.setItem('currency', currency);
     localStorage.setItem('totalAutoGen', totalAutoGen);
     localStorage.setItem('upgradeCosts', JSON.stringify(upgradeCosts)); // Save upgrade data
-}
+} 
 
 
 //rate of auto generated currency 
