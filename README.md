@@ -5,7 +5,7 @@
  This is a user based game to generate as much currency as they can to unlock all the upgrades.
 
 # How to use
- Follow this link to access the application:
+ Follow this link to access the application: https://vincentt94.github.io/Money-Maker/
 
 # How to play
  A user can click on the dollar bill icon to generate currency.
