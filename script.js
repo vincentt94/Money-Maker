@@ -24,14 +24,11 @@ const factoryUpgrade = document.getElementById('factoryUpgrade');
 const moneyPrinterUpgrade = document.getElementById('moneyPrinterUpgrade');
 const billUpgrade = document.getElementById('billUpgrade');
 const moneyMulitplier = document.getElementById('moneypersec')
-
 const costIncreaseFactor = 1.5;
-
-//BEGINNING BUTTON BEHAVIOR 
-let clickValue = 1;
-
+ 
 //Client-side storage
 let currency = parseInt(sessionStorage.getItem('currency')) || 0; 
+let clickValue  = parseInt(sessionStorage.getItem('generate')) || 1;
 let totalAutoGen = parseFloat(sessionStorage.getItem('totalAutoGen')) || 0;
 let upgradeCosts = JSON.parse(sessionStorage.getItem('upgradeCosts')) || {
     upgrade1: { cost: 100, maxPurchases: 5, purchasesMade: 0, autoGen: 1 },
@@ -302,6 +299,7 @@ function saveData() {
     sessionStorage.setItem('currency', currency);
     sessionStorage.setItem('totalAutoGen', totalAutoGen);
     sessionStorage.setItem('upgradeCosts', JSON.stringify(upgradeCosts)); // Save upgrade data
+    sessionStorage.setItem('generate',clickValue);
 }
 
 
