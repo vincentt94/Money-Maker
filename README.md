@@ -14,3 +14,6 @@
 
 # FYI
  A user's  currency and upgrade will be tracked while they remain on the webpage, even if they refresh it. However, if a user exits the page, their current session play though will be erased and they will begin with zero currency and zero purchased upgrades.
+
+# Technologies
+HTML5, CSS3, Javascript, Bootstrap
