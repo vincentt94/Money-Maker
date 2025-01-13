@@ -5,11 +5,11 @@
  This is a user based game to generate as much currency as they can to unlock all the upgrades.
 
 # How to use
- <Follow this link to access the application:
+ Follow this link to access the application:
 
 # How to play
  A user can click on the dollar bill icon to generate currency.
- <Once a user has earned enough currency to unlock and upgrade, they may click that upgrade to increase the rate at which their currency is generating.
+ Once a user has earned enough currency to unlock and upgrade, they may click that upgrade to increase the rate at which their currency is generating.
  There are a limited number of unlockable upgrades, and the system will notify the user once they have reached the limit for a given upgrade.
 
 # FYI
