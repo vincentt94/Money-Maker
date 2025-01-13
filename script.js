@@ -26,7 +26,7 @@ const billUpgrade = document.getElementById('billUpgrade');
 
 const moneyMulitplier = document.getElementById('moneypersec')
 
-let currency = 150;
+let currency = 15000;
 const costIncreaseFactor = 1.5;
 
 //BEGINNING BUTTON BEHAVIOR 
