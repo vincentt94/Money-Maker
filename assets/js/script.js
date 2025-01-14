@@ -247,7 +247,7 @@ function buyUpgrade(upgrade) {
             } else if (upgrade === 'upgrade4') {
                 upgrade4Button.textContent = message4;
                 billUpgrade.textContent = `Upgrade cost increased to: $${upgradeCosts[upgrade].cost}`
-                clickValue += 1;
+                clickValue += 1; 
                 if(clickValue == 2){
                     clickValue = 5;
                 } 
@@ -257,6 +257,8 @@ function buyUpgrade(upgrade) {
                 if(clickValue == 11){
                     clickValue =20;
                 }
+                
+
 
                 showAlert4();
             }
@@ -271,20 +273,10 @@ function buyUpgrade(upgrade) {
 
 
 
-// set up auto generation for currency based on upgrades
+// set up auto generation for currency based on upgrades purchased
 function autoGenerateCurrency() {
-    // for each upgrade, check if it has been purchased and increase currency
-    if (upgradeCosts.upgrade1.purchasesMade > 0) {
-        currency += upgradeCosts.upgrade1.autoGen * upgradeCosts.upgrade1.purchasesMade;
-    }
-    if (upgradeCosts.upgrade2.purchasesMade > 0) {
-        currency += upgradeCosts.upgrade2.autoGen * upgradeCosts.upgrade2.purchasesMade;
-    }
-    if (upgradeCosts.upgrade3.purchasesMade > 0) {
-        currency += upgradeCosts.upgrade3.autoGen * upgradeCosts.upgrade3.purchasesMade;
-    }
-
     currency += totalAutoGen;
+
     totalText();
     saveData();
 }
